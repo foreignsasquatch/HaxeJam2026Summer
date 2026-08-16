@@ -1,0 +1,4 @@
+-m Main
+-lib raylib-hx
+-cpp build/debug
+-debug
