@@ -1,0 +1,9 @@
+common.hxml
+-cpp build/web
+-D emscripten
+-D analyzer-optimize
+-D disable_unicode_strings
+-D RAYLIB_WEB_RESOURCES_PATH=content
+-D HXCPP_LINK_EMSCRIPTEN_EXT=.html
+#-D HXCPP_LINK_MEMORY_GROWTH
+-D HXCPP_LINK_NO_EXCEPTIONS

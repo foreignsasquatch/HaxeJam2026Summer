@@ -1,0 +1,7 @@
+-p src
+-m Game
+
+-lib raylib-hx
+-lib rlimgui-hx
+-lib linc_imgui
+-lib ase

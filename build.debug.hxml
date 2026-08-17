@@ -1,4 +1,3 @@
--m Main
--lib raylib-hx
+common.hxml
 -cpp build/debug
 -debug
