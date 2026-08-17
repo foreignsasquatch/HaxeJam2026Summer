@@ -6,7 +6,7 @@ import raylib.Types;
 import raylib.Raylib;
 
 var gravity = 32.;
-var maxSpeed = 10.;
+var maxSpeed = 15.;
 var jumpForce = 12.;
 var maxAcceleration = 150.;
 var friction = 0.86;
@@ -133,6 +133,14 @@ function main() {
     lean = new Vector2(0,0);
     headLerp = height;
 
+    var map = Raylib.LoadImage("content/TestMap.png");
+    var mesh = Raylib.GenMeshCubicmap(map, new Vector3(5, 5, 5));
+    var model =  Raylib.LoadModelFromMesh(mesh);
+    Raylib.UnloadImage(map);
+
+    var texture = Raylib.LoadTexture("content/CubeAtlas.png");
+    untyped __cpp__("model.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = texture");
+
     updateCamera();
 
     Raylib.SetExitKey(0);
@@ -180,8 +188,8 @@ function main() {
             camera.fovy = Lerp(camera.fovy, 60, 5 * dt);
         }
 
-        lean.x = Lerp(lean.x, sideways * 0.01, 10 * dt);
-        lean.y = Lerp(lean.y , forward * 0.01, 10 * dt);
+        lean.x = Lerp(lean.x, sideways * 0.001, 10 * dt);
+        lean.y = Lerp(lean.y , forward * 0.001, 10 * dt);
 
         updateCamera();
 
@@ -191,7 +199,8 @@ function main() {
 
             Raylib.BeginMode3D(camera);
             Raylib.DrawPlane(new Vector3(0, 0, 0),  new Vector2(5, 5), Raylib.WHITE);
-            Raylib.DrawCube(new Vector3(10, 10, 0), 5, 20, 5, Raylib.RED);
+            Raylib.DrawCube(new Vector3(10, 10, 0), 5, 20, 5, Raylib.RED); 
+            Raylib.DrawModel(model, new Vector3(0, 0, 0), 1, Raylib.WHITE);
             Raylib.EndMode3D();
         
             Raylib.DrawFPS(0,0);
@@ -199,5 +208,7 @@ function main() {
         Raylib.EndDrawing(); 
     }
 
+    Raylib.UnloadModel(model);
+    Raylib.UnloadTexture(texture);
     Raylib.CloseWindow();
 }
