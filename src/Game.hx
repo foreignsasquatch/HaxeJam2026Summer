@@ -1,4 +1,3 @@
-import raylib.Raymath.*;
 import raylib.Types;
 import raylib.Raylib;
 import jam.GameState;
@@ -26,7 +25,7 @@ class Game implements GameState {
         Raylib.UnloadImage(map);
 
         texture = Raylib.LoadTexture("content/CubeAtlas.png");
-        untyped __cpp__("model.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = texture");
+        untyped __cpp__("model.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = texture"); 
     }
 
     public function update(dt:Float) {
@@ -50,7 +49,7 @@ class Game implements GameState {
 
     public function unload() {
         Raylib.UnloadModel(model);
-        Raylib.UnloadTexture(texture); 
+        Raylib.UnloadTexture(texture);
     }
 
     public static function main() {

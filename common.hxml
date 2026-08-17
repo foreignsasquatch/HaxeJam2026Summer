@@ -1,7 +1,7 @@
--p src
--m Game
+-cp src
+-main Game
 
 -lib raylib-hx
--lib rlimgui-hx
--lib linc_imgui
 -lib ase
+
+-D no-deprecation-warnings
