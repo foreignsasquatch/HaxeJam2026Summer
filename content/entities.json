@@ -1,0 +1,9 @@
+{
+    "player": {
+        "sprite": "content/slime.ase"
+    },
+    "slime": {
+        "sprite": "content/slime.ase",
+        "speed": 10
+    }
+}

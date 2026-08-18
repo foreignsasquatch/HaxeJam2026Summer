@@ -1,0 +1,5 @@
+{
+    "rooms":[],
+    "gridSize": 16,
+    "defaultTileset": "content/level1/Tileset.ase"
+}

@@ -1,3 +1,4 @@
 common.hxml
 -cpp build/debug
 -debug
+-D HXCPP-DEBUGGER

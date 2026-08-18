@@ -1,6 +1,0 @@
-black - floor
-white - wall
-red - enemy
-blue - player
-
-each aseprite layer can be its own height

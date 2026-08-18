@@ -7,6 +7,7 @@ class App {
     static var gameState:GameState;
 
     public static function run(w:Int, h:Int, t:String, g:Class<GameState>) {
+        Raylib.SetTraceLogLevel(TraceLogLevel.LOG_ERROR);
         Raylib.InitWindow(w, h, t);
         Raylib.InitAudioDevice();
         Raylib.SetTargetFPS(60);
