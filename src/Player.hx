@@ -10,7 +10,7 @@ class Player {
     var maxAcceleration = 150.;
  
     var friction = 0.86;
-    var airDrag = 0.85;
+    var airDrag = 0.9;
 
     var control = 15.;
     public var height = 1.;
@@ -26,11 +26,11 @@ class Player {
         dir = new Vector3(0, 0, 0);
     }
 
-    public function update(rot:Float, side:Int, forward:Int, jump:Bool, dt:Float) {
-        updateBody(rot, side, forward, jump, dt);
+    public function update(groundExists:Bool, rot:Float, side:Int, forward:Int, jump:Bool, dt:Float) {
+        updateBody(groundExists, rot, side, forward, jump, dt);
     }
 
-    function updateBody(rot:Float, side:Int, forward:Int, jump:Bool, dt:Float) {
+    function updateBody(groundExists:Bool, rot:Float, side:Int, forward:Int, jump:Bool, dt:Float) {
         var input = new Vector2(side, -forward);
         if(side != 0 && forward != 0) input = Vector2Normalize(input);
 
@@ -69,10 +69,13 @@ class Player {
         position.y = position.y + velocity.y * dt;
         position.z = position.z + velocity.z * dt;
 
-        if(position.y <= 0) {
-            position.y = 0;
+        if(position.y <= 0 && groundExists) {
             position.y = 0;
             isGrounded = true;
+        }
+
+        if(!groundExists) {
+            isGrounded = false;
         }
     }
 

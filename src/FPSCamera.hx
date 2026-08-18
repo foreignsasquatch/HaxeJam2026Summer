@@ -3,7 +3,7 @@ import raylib.Types;
 import raylib.Raylib;
 
 class FPSCamera {
-    var camera:Camera3DImpl;
+    public var camera:Camera3DImpl;
   
     var headTiltTimer:Float = 0;
     var headLerp:Float;
@@ -65,8 +65,8 @@ class FPSCamera {
         var stepRotation = 0.01;
         camera.up = Vector3RotateByAxisAngle(up, pitch, headSin*stepRotation + lean.x);
 
-        var bobSide = 0.01;
-        var bobUp = 0.01;
+        var bobSide = 0.1;
+        var bobUp = 0.1;
         var bobbing = Vector3Scale(right, headSin * bobSide);
         bobbing.y = Math.abs(headCos*bobUp);
 

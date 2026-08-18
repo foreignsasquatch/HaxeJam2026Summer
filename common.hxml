@@ -3,5 +3,7 @@
 
 -lib raylib-hx
 -lib ase
+-lib linc_imgui
+-lib rlimgui-hx
 
 -D no-deprecation-warnings

@@ -128,6 +128,7 @@ class Aseprite {
 
     public function genTexture(layer:Int, frame:ase.Frame):Texture {
         var layerIndex:Int = layer;
+        if(frame.cel(layer) != null) {
         var celWidth:Int = frame.cel(layer).width;
         var celHeight:Int = frame.cel(layer).height;
         var celPixelData:haxe.io.Bytes = frame.cel(layerIndex).pixelData;
@@ -139,6 +140,8 @@ class Aseprite {
         celImage.mipmaps = 1;
         celImage.format = PixelFormat.PIXELFORMAT_UNCOMPRESSED_R8G8B8A8;
         return Raylib.LoadTextureFromImage(celImage);
+        }
+        return null;
     }
 
     public function unload() {

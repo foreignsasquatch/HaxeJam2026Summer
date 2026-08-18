@@ -2,7 +2,7 @@ import raylib.Raymath.*;
 import raylib.Types;
 import raylib.Raylib;
 
-class Input {
+class InputHandler {
     public static var mouseSensitivity:Vector2;
     public static var lookRotation:Vector2;
 
