@@ -33,6 +33,10 @@ class InputHandler {
         return Raylib.IsKeyDown(KEY_SPACE);
     }
 
+    public static function getShoot():Bool {
+        return Raylib.IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+    }
+
     /*
         if(false && Raylib.IsGamepadAvailable(0)) {
             lookRotation.x = lookRotation.x - (Raylib.GetGamepadAxisMovement(0, GAMEPAD_AXIS_RIGHT_X)*10) * mouseSensitivity.x;

@@ -81,4 +81,8 @@ class FPSCamera {
     public function end() {
         Raylib.EndMode3D();
     }
+
+    public function getForward():Vector3 {
+        return Vector3Normalize(Vector3Subtract(camera.target, camera.position));
+    }
 }

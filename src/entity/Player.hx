@@ -1,4 +1,5 @@
 package entity;
+import jam.Assets;
 import jam.Serializables.EntityData;
 import jam.Aseprite;
 import raylib.Raymath.*;
@@ -9,7 +10,7 @@ class Player extends jam.Entity {
     var gravity = 32.;
     var jumpForce = 12.;
     
-    var maxSpeed = 20.;
+    var maxSpeed = 12.5;
     var maxAcceleration = 150.;
  
     var friction = 0.86;
@@ -23,19 +24,37 @@ class Player extends jam.Entity {
     public var dir:Vector3;
     public var isGrounded:Bool = true;
 
-    var hand:Aseprite;
-    
+    var look:Vector2;
+
+    var hand:Texture;
+    var frame = 0;
+
+    public static var money:Int = -10000; 
+
     public function new(e:EntityData) {
         super(e);
         position = new Vector3(x, 0, y);
         velocity = new Vector3(0, 0, 0);
         dir = new Vector3(0, 0, 0);
         
-        hand = new Aseprite("content/hand.ase");
+        hand = Raylib.LoadTexture("content/hand.png");
     }
 
-    extern overload inline function update(groundExists:Bool, rot:Float, side:Int, forward:Int, jump:Bool, dt:Float):Void {
+    var l = 15;
+    var frameCounter = 15;
+    extern overload inline function update(groundExists:Bool, look:Vector2, side:Int, forward:Int, jump:Bool, dt:Float):Void {
+        if(frameCounter == 0) {frame = 0;frameCounter =l;}
+        else frameCounter--;
+        this.look = look;
+        var rot = look.x;
         updateBody(groundExists, rot, side, forward, jump, dt);
+        if(InputHandler.getShoot()) shoot();
+    }
+
+    function shoot() {
+        Bullet.playerBullets.push(new Bullet(position.x, position.y + height - 0.5,position.z, look));
+        frame = 1;
+        money += 100;
     }
 
     function updateBody(groundExists:Bool, rot:Float, side:Int, forward:Int, jump:Bool, dt:Float) {
@@ -87,11 +106,15 @@ class Player extends jam.Entity {
         }
     }
 
-    override function draw() {
-        Raylib.DrawTextureEx(hand.spritesheet, new Vector2((1024/2)-((8*64)/2), (768)-(8*64)), 0, 8, Raylib.WHITE);
+    overload extern inline function draw() {
+    }
+
+    public function drawUI() {
+        var s = 6;        
+        Raylib.DrawTexturePro(hand, new Rectangle(frame * 64, frame * 64, 64, 64), new Rectangle((Raylib.GetScreenWidth()/2)-((s*64)/2), (Raylib.GetScreenHeight())-(s*64), 64 * s, 64 * s), new Vector2(0, 0), 0, Raylib.WHITE);
     }
 
     public function unload() {
-        hand.unload();
+        Raylib.UnloadTexture(hand);
     }
 }

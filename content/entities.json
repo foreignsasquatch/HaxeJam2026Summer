@@ -5,5 +5,8 @@
     "slime": {
         "sprite": "content/slime.ase",
         "speed": 10
+    },
+    "dice": {
+        "sprite": "content/dice.ase"
     }
 }

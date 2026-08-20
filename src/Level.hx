@@ -1,3 +1,4 @@
+import jam.Assets;
 import haxe.ds.Vector;
 import jam.Aseprite;
 import raylib.Types;
@@ -26,14 +27,16 @@ class Level {
         this.size = size; 
         data = haxe.Json.parse(sys.io.File.getContent(file));
 
-        solidSpritesheet = new Aseprite(tileset);
-        decorationsSpritesheet = new Aseprite(data.rooms[0].tileset);
+        solidSpritesheet = Assets.ase[tileset]; 
+        decorationsSpritesheet = Assets.ase[data.rooms[0].tileset];
 
         defModels = new Vector(data.rooms.length);
         models = new Vector(64);
 
         for(r in 0...data.rooms.length) {
             var room = data.rooms[r];
+            room.x = Std.int((room.x/16) * size.x);
+            room.y = Std.int((room.y/16) * size.x);
             defModels[r] = genRoomModel(room);
 
             if(!tilesetMap.exists(room.tileset)) {
@@ -58,7 +61,7 @@ class Level {
         var img = Raylib.GenImageColor(room.width, room.height, Raylib.BLACK);
         for(i in 0...room.width) {
             for(j in 0...room.height) {
-                if(room.solids[(i * room.width) + j] != 0) Raylib.ImageDrawPixel(cpp.RawPointer.addressOf(img), i, j, Raylib.WHITE);
+                if(room.solids[(i * room.width) + j] == 1) Raylib.ImageDrawPixel(cpp.RawPointer.addressOf(img), i, j, Raylib.WHITE);
             }
         }
 
@@ -93,7 +96,7 @@ class Level {
                 for(j in 0...d.width) {
                     var t = d.foreground[(i*d.width)+j];
                     if(t != 0) {
-                        Raylib.DrawBillboardPro(camera, decorationsSpritesheet.spritesheet, tilesetMap.get(d.tileset).get(t), new Vector3((m.x)+(i*size.x), 0, (m.y)+(j*size.z)), new Vector3(0,1,0),new Vector2(2,2),new Vector2(0,0), 0, Raylib.WHITE);
+                        Raylib.DrawBillboardPro(camera, decorationsSpritesheet.spritesheet, tilesetMap.get(d.tileset).get(t), new Vector3((m.x)+(i*size.x) - (size.x/2), 0, (m.y)+(j*size.z) - (size.z/2)+0.5), new Vector3(0,1,0),new Vector2(2,2),new Vector2(0,0), 0, Raylib.WHITE);
                     }
                 }
             }

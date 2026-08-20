@@ -12,7 +12,9 @@ class App {
         Raylib.InitAudioDevice();
         Raylib.SetTargetFPS(60);
         Raylib.SetExitKey(0); 
-        
+
+        Assets.load();
+
         setGameState(g);
 #if emscripten
         emscripten.Emscripten.set_main_loop(cpp.Callable.fromStaticFunction(update), 60, true);
@@ -20,7 +22,10 @@ class App {
     while(!Raylib.WindowShouldClose()) {
         update();
     }
-#end 
+#end
+    
+        Assets.unload();
+
         gameState.unload();
         Raylib.CloseAudioDevice();
         Raylib.CloseWindow();
